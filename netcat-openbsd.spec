@@ -9,7 +9,8 @@ License:	Public Domain
 Group:		Networking/Utilities
 Source0:	http://ftp.de.debian.org/debian/pool/main/n/%{name}/%{name}_%{version}.orig.tar.gz
 # Source0-md5:	7238ce15aae43069e96ba7faf03f153e
-Patch0:		http://cdn.debian.net/debian/pool/main/n/%{name}/%{name}_%{version}-4.diff.gz
+# http://cdn.debian.net/debian/pool/main/n/%{name}/%{name}_%{version}-4.diff.gz
+Patch0:		%{name}_%{version}-4.diff
 URL:		http://packages.debian.org/sid/netcat-openbsd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
