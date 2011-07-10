@@ -4,7 +4,7 @@ Summary(pl.UTF-8):	Proste narzędzie do testowania sieci
 Summary(pt_BR.UTF-8):	Ferramenta de teste e depuração para serviços de rede
 Name:		netcat-openbsd
 Version:	1.89
-Release:	1
+Release:	2
 License:	Public Domain
 Group:		Networking/Utilities
 Source0:	http://ftp.de.debian.org/debian/pool/main/n/%{name}/%{name}_%{version}.orig.tar.gz
