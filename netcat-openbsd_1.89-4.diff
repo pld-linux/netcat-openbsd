@@ -895,8 +895,7 @@
 +    echo "${xx}" >> $LFILE
 +    test "${xx}" || break
 +# eew, buried returns, gross but necessary for DOS stupidity:
-+    test "${xx}" = "
-" && break
++    test "${xx}" = `/bin/echo -n -e "\r"` && break
 +  done
 +fi
 +# check for non-GET *after* we log the query...
