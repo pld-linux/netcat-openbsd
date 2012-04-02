@@ -3,15 +3,27 @@ Summary(es.UTF-8):	Herramienta de prueba e depuración para servicios de red
 Summary(pl.UTF-8):	Proste narzędzie do testowania sieci
 Summary(pt_BR.UTF-8):	Ferramenta de teste e depuração para serviços de rede
 Name:		netcat-openbsd
-Version:	1.89
-Release:	2
+Version:	1.105
+Release:	0.1
 License:	Public Domain
 Group:		Networking/Utilities
-Source0:	http://ftp.de.debian.org/debian/pool/main/n/%{name}/%{name}_%{version}.orig.tar.gz
-# Source0-md5:	7238ce15aae43069e96ba7faf03f153e
-# http://cdn.debian.net/debian/pool/main/n/%{name}/%{name}_%{version}-4.diff.gz
-Patch0:		%{name}_%{version}-4.diff
+Source0:	http://ftp.debian.org/debian/pool/main/n/%{name}/%{name}_%{version}.orig.tar.gz
+# Source0-md5:	7e67b22f1ad41a1b7effbb59ff28fca1
+# http://ftp.debian.org/debian/pool/main/n/%{name}/netcat-openbsd_1.105-5.debian.tar.gz
+Patch0:		0001-port-to-linux-with-libsd.patch
+Patch1:		0002-connect-timeout.patch
+Patch2:		0003-get-sev-by-name.patch
+Patch3:		0004-poll-hup.patch
+Patch4:		0005-send-crlf.patch
+Patch5:		0006-quit-timer.patch
+Patch6:		0007-udp-scan-timeout.patch
+Patch7:		0008-verbose-numeric-port.patch
+Patch8:		0009-dccp-support.patch
+Patch9:		0010-serialized-handling-multiple-clients.patch
+Patch10:	0011-misc-failures-and-features.patch
 URL:		http://packages.debian.org/sid/netcat-openbsd
+BuildRequires:	libbsd-devel
+Provides:	nc
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -48,18 +60,21 @@ conexões TCP para portas arbitrárias e pode simular conexões sobre
 UDP. Também pode receber conexões.
 
 %prep
-%setup -q -n %{name}-%{version}.orig
+%setup -q
 %patch0 -p1
-
-# taken from arch linux
-for i in `cat debian/patches/series`
-	do
-		echo "** patch $i" 1>&2
-		cat "debian/patches/$i"
-	done | patch -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
+%patch8 -p1
+%patch9 -p1
+%patch10 -p1
 
 %build
-%{__make} CFLAGS="%{rpmcflags} -DDEBIAN_VERSION=\"\""
+%{__make} CFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
