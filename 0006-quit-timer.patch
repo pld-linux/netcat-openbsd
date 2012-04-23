@@ -68,7 +68,7 @@ Subject: [PATCH] quit timer
  			pflag = optarg;
  			break;
 +                case 'q':
-+			qflag = strtonum(optarg, INT_MIN, INT_MAX, &errstr);
++			qflag = strtonum(optarg, (long long)INT_MIN, (long long)INT_MAX, &errstr);
 +			if (errstr)
 +				errx(1, "quit timer %s: %s", errstr, optarg);
 +			break;
