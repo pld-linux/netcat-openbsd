@@ -106,7 +106,7 @@ Subject: [PATCH] port to linux with libsd
  #include <unistd.h>
  #include <fcntl.h>
  #include <limits.h>
-+#include <stdlib.h>
++#include <bsd/stdlib.h>
 +#include <string.h>
  #include "atomicio.h"
  
