@@ -3,26 +3,32 @@ Summary(es.UTF-8):	Herramienta de prueba e depuración para servicios de red
 Summary(pl.UTF-8):	Proste narzędzie do testowania sieci
 Summary(pt_BR.UTF-8):	Ferramenta de teste e depuração para serviços de rede
 Name:		netcat-openbsd
-Version:	1.105
-Release:	4
-License:	Public Domain
+Version:	1.234
+Release:	1
+License:	ISC
 Group:		Networking/Utilities
-Source0:	http://ftp.debian.org/debian/pool/main/n/%{name}/%{name}_%{version}.orig.tar.gz
-# Source0-md5:	7e67b22f1ad41a1b7effbb59ff28fca1
-# http://ftp.debian.org/debian/pool/main/n/%{name}/netcat-openbsd_1.105-5.debian.tar.gz
-Patch0:		0001-port-to-linux-with-libsd.patch
-Patch1:		0002-connect-timeout.patch
-Patch2:		0003-get-sev-by-name.patch
-Patch3:		0004-poll-hup.patch
-Patch4:		0005-send-crlf.patch
-Patch5:		0006-quit-timer.patch
-Patch6:		0007-udp-scan-timeout.patch
-Patch7:		0008-verbose-numeric-port.patch
-Patch8:		0009-dccp-support.patch
-Patch9:		0010-serialized-handling-multiple-clients.patch
-Patch10:	0011-misc-failures-and-features.patch
-URL:		http://packages.debian.org/sid/netcat-openbsd
+Source0:	https://deb.debian.org/debian/pool/main/n/%{name}/%{name}_%{version}.orig.tar.gz
+# Source0-md5:	c3906f02d5a070afd8ac23ec983fc746
+# Patches from Debian netcat-openbsd 1.234-2
+Patch0:		port-to-linux-with-libbsd.patch
+Patch1:		build-without-TLS-support.patch
+Patch2:		connect-timeout.patch
+Patch3:		get-sev-by-name.patch
+Patch4:		send-crlf.patch
+Patch5:		quit-timer.patch
+Patch6:		udp-scan-timeout.patch
+Patch7:		dccp-support.patch
+Patch8:		broadcast-support.patch
+Patch9:		serialized-handling-multiple-clients.patch
+Patch10:	set-TCP-MD5SIG-correctly-for-client-connections.patch
+Patch11:	destination-port-list.patch
+Patch12:	use-flags-to-specify-listen-address.patch
+Patch13:	make-getnameinfo-errors-nonfatal-in-report_sock.patch
+Patch14:	abstract-unix-domain-socket.patch
+Patch15:	misc-failures-and-features.patch
+URL:		https://packages.debian.org/sid/netcat-openbsd
 BuildRequires:	libbsd-devel
+BuildRequires:	pkgconfig
 Provides:	nc
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -72,9 +78,18 @@ UDP. Também pode receber conexões.
 %patch -P8 -p1
 %patch -P9 -p1
 %patch -P10 -p1
+%patch -P11 -p1
+%patch -P12 -p1
+%patch -P13 -p1
+%patch -P14 -p1
+%patch -P15 -p1
 
 %build
-%{__make} CFLAGS="%{rpmcflags}"
+%{__make} \
+	CC="%{__cc}" \
+	CFLAGS="%{rpmcflags} %{rpmcppflags}" \
+	LDFLAGS="%{rpmldflags}" \
+	LIBS="-lbsd -lresolv"
 
 %install
 rm -rf $RPM_BUILD_ROOT

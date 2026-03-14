@@ -1,37 +1,34 @@
 From: Aron Xu <aron@debian.org>
 Date: Mon, 13 Feb 2012 15:29:37 +0800
-Subject: [PATCH] udp scan timeout
+Subject: Fix UDP scan timeout
 
 ---
- netcat.c |   25 ++++++++++++++++---------
- 1 files changed, 16 insertions(+), 9 deletions(-)
+ netcat.c | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
 
+diff --git a/netcat.c b/netcat.c
+index bda96ce..1c9144f 100644
 --- a/netcat.c
 +++ b/netcat.c
-@@ -111,6 +111,8 @@
+@@ -129,6 +129,8 @@
  #define CONNECTION_FAILED 1
  #define CONNECTION_TIMEOUT 2
  
 +#define UDP_SCAN_TIMEOUT 3			/* Seconds */
 +
  /* Command Line Options */
- int     Cflag = 0;                              /* CRLF line-ending */
  int	dflag;					/* detached, no stdin */
-@@ -497,7 +499,7 @@
- 				continue;
- 
- 			ret = 0;
--			if (vflag || zflag) {
-+			if (vflag) {
- 				/* For UDP, make sure we are connected. */
- 				if (uflag) {
- 					if (udptest(s) == -1) {
-@@ -1057,15 +1059,20 @@
+ int	Fflag;					/* fdpass sock to stdout */
+@@ -1799,19 +1801,24 @@ build_ports(char *p)
  int
  udptest(int s)
  {
 -	int i, ret;
 +	int i, t;
+ 
+ 	/* Only write to the socket in scan mode or interactive mode. */
+ 	if (!zflag && !isatty(STDIN_FILENO))
+ 		return 0;
  
 -	for (i = 0; i <= 3; i++) {
 -		if (write(s, "X", 1) == 1)
@@ -49,7 +46,7 @@ Subject: [PATCH] udp scan timeout
 +		if ((write(s, "X", 1) != 1) && (errno == ECONNREFUSED))
 +			return -1;
  	}
--	return (ret);
+-	return ret;
 +	return 1;
  }
  
