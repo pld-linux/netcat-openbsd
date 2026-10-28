@@ -7,10 +7,10 @@ Subject: Add ability to specify destination ports by name
  1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/netcat.c b/netcat.c
-index 39cbfe1..9d4fa4f 100644
+index 5ed422b..a9a38c5 100644
 --- a/netcat.c
 +++ b/netcat.c
-@@ -1705,11 +1705,16 @@ strtoport(char *portstr, int udp)
+@@ -1707,11 +1707,16 @@ strtoport(char *portstr, int udp)
  void
  build_ports(char *p)
  {

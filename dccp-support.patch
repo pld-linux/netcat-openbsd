@@ -30,7 +30,7 @@ index 1724081..f262939 100644
  Only scan for listening daemons, without sending any data to them.
  Cannot be used together with
 diff --git a/netcat.c b/netcat.c
-index 1c9144f..73fdfa4 100644
+index cb7db2d..529fdb2 100644
 --- a/netcat.c
 +++ b/netcat.c
 @@ -146,6 +146,7 @@ int	rflag;					/* Random ports flag */
@@ -83,7 +83,7 @@ index 1c9144f..73fdfa4 100644
  		host = argv[0];
  	} else if (argc == 0 && lflag) {
  		if (sflag)
-@@ -586,8 +599,20 @@ main(int argc, char *argv[])
+@@ -588,8 +601,20 @@ main(int argc, char *argv[])
  	if (family != AF_UNIX) {
  		memset(&hints, 0, sizeof(struct addrinfo));
  		hints.ai_family = family;
@@ -106,7 +106,7 @@ index 1c9144f..73fdfa4 100644
  		if (nflag)
  			hints.ai_flags |= AI_NUMERICHOST;
  	}
-@@ -595,7 +620,10 @@ main(int argc, char *argv[])
+@@ -597,7 +622,10 @@ main(int argc, char *argv[])
  	if (xflag) {
  		if (uflag)
  			errx(1, "no proxy support for UDP mode");
@@ -118,7 +118,7 @@ index 1c9144f..73fdfa4 100644
  		if (lflag)
  			errx(1, "no proxy support for listen");
  
-@@ -843,9 +871,11 @@ main(int argc, char *argv[])
+@@ -845,9 +873,11 @@ main(int argc, char *argv[])
  						continue;
  					}
  				}
@@ -132,7 +132,7 @@ index 1c9144f..73fdfa4 100644
  			}
  			if (Fflag)
  				fdpass(s);
-@@ -1059,6 +1089,21 @@ unix_listen(char *path)
+@@ -1061,6 +1091,21 @@ unix_listen(char *path)
  	return s;
  }
  
@@ -154,7 +154,7 @@ index 1c9144f..73fdfa4 100644
  /*
   * remote_connect()
   * Returns a socket connected to a remote host. Properly binds to a local
-@@ -1090,8 +1135,20 @@ remote_connect(const char *host, const char *port, struct addrinfo hints,
+@@ -1092,8 +1137,20 @@ remote_connect(const char *host, const char *port, struct addrinfo hints,
  #endif
  			memset(&ahints, 0, sizeof(struct addrinfo));
  			ahints.ai_family = res->ai_family;
@@ -177,7 +177,7 @@ index 1c9144f..73fdfa4 100644
  			ahints.ai_flags = AI_PASSIVE;
  			if ((error = getaddrinfo(sflag, pflag, &ahints, &ares)))
  				errx(1, "getaddrinfo: %s", gai_strerror(error));
-@@ -1121,16 +1178,18 @@ remote_connect(const char *host, const char *port, struct addrinfo hints,
+@@ -1123,16 +1180,18 @@ remote_connect(const char *host, const char *port, struct addrinfo hints,
  		    timeout)) == CONNECTION_SUCCESS)
  			break;
  
@@ -198,7 +198,7 @@ index 1c9144f..73fdfa4 100644
  				    error == CONNECTION_TIMEOUT ? "timed out" : "failed");
  		}
  
-@@ -1747,7 +1806,8 @@ build_ports(char *p)
+@@ -1749,7 +1808,8 @@ build_ports(char *p)
  	int hi, lo, cp;
  	int x = 0;
  
@@ -208,7 +208,7 @@ index 1c9144f..73fdfa4 100644
  	if (sv) {
  		if (asprintf(&portlist[0], "%d", ntohs(sv->s_port)) < 0)
  			err(1, "asprintf");
-@@ -2165,6 +2225,7 @@ help(void)
+@@ -2173,6 +2233,7 @@ help(void)
  	\t-w timeout	Timeout for connects and final net reads\n\
  	\t-X proto	Proxy protocol: \"4\", \"4A\", \"5\" (SOCKS) or \"connect\"\n\
  	\t-x addr[:port]\tSpecify proxy address and port\n\
@@ -216,7 +216,7 @@ index 1c9144f..73fdfa4 100644
  	\t-z		Zero-I/O mode [used for scanning]\n\
  	Port numbers can be individual or ranges: lo-hi [inclusive]\n");
  	exit(0);
-@@ -2174,7 +2235,7 @@ void
+@@ -2182,7 +2243,7 @@ void
  usage(int ret)
  {
  	fprintf(stderr,

@@ -3,13 +3,13 @@ Summary(es.UTF-8):	Herramienta de prueba e depuración para servicios de red
 Summary(pl.UTF-8):	Proste narzędzie do testowania sieci
 Summary(pt_BR.UTF-8):	Ferramenta de teste e depuração para serviços de rede
 Name:		netcat-openbsd
-Version:	1.234
+Version:	1.239
 Release:	1
 License:	ISC
 Group:		Networking/Utilities
 Source0:	https://deb.debian.org/debian/pool/main/n/%{name}/%{name}_%{version}.orig.tar.gz
-# Source0-md5:	c3906f02d5a070afd8ac23ec983fc746
-# Patches from Debian netcat-openbsd 1.234-2
+# Source0-md5:	372c90fe2dca8786bc4261f2ee361fc4
+# Patches from Debian netcat-openbsd 1.239-1
 Patch0:		port-to-linux-with-libbsd.patch
 Patch1:		build-without-TLS-support.patch
 Patch2:		connect-timeout.patch

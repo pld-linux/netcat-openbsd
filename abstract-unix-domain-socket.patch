@@ -29,7 +29,7 @@ index 91b719e..5b2e224 100644
  Use UDP instead of TCP.
  Cannot be used together with
 diff --git a/netcat.c b/netcat.c
-index 60ea75a..0ba8dee 100644
+index eda2739..0878dae 100644
 --- a/netcat.c
 +++ b/netcat.c
 @@ -98,6 +98,7 @@
@@ -48,7 +48,7 @@ index 60ea75a..0ba8dee 100644
  void	connection_info(const char *, const char *, const char *, const char *);
  int	unix_bind(char *, int);
  int	unix_connect(char *);
-@@ -936,6 +938,46 @@ main(int argc, char *argv[])
+@@ -938,6 +940,46 @@ main(int argc, char *argv[])
  	return ret;
  }
  
@@ -95,7 +95,7 @@ index 60ea75a..0ba8dee 100644
  /*
   * unix_bind()
   * Returns a unix socket bound to the given path
-@@ -944,24 +986,17 @@ int
+@@ -946,24 +988,17 @@ int
  unix_bind(char *path, int flags)
  {
  	struct sockaddr_un s_un;
@@ -125,7 +125,7 @@ index 60ea75a..0ba8dee 100644
  		save_errno = errno;
  		close(s);
  		errno = save_errno;
-@@ -1071,7 +1106,10 @@ int
+@@ -1073,7 +1108,10 @@ int
  unix_connect(char *path)
  {
  	struct sockaddr_un s_un;
@@ -137,7 +137,7 @@ index 60ea75a..0ba8dee 100644
  
  	if (uflag) {
  		if ((s = unix_bind(unix_dg_tmp_socket, SOCK_CLOEXEC)) == -1)
-@@ -1081,16 +1119,7 @@ unix_connect(char *path)
+@@ -1083,16 +1121,7 @@ unix_connect(char *path)
  			return -1;
  	}
  

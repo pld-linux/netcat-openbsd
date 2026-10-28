@@ -11,10 +11,10 @@ Bug-Debian: https://bugs.debian.org/961378
  1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/netcat.c b/netcat.c
-index b11846c..60ea75a 100644
+index faa3353f..eda2739 100644
 --- a/netcat.c
 +++ b/netcat.c
-@@ -2230,9 +2230,11 @@ report_sock(const char *msg, const struct sockaddr *sa, socklen_t salen,
+@@ -2238,9 +2238,11 @@ report_sock(const char *msg, const struct sockaddr *sa, socklen_t salen,
  	case 0:
  		break;
  	case EAI_SYSTEM:

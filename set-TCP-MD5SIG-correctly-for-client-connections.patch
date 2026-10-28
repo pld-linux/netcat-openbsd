@@ -7,7 +7,7 @@ Subject: Fix TCP MD5SIG for client connections
  1 file changed, 26 insertions(+), 8 deletions(-)
 
 diff --git a/netcat.c b/netcat.c
-index af3559e..6d4faae 100644
+index 8b586d8..c453f6b 100644
 --- a/netcat.c
 +++ b/netcat.c
 @@ -46,6 +46,9 @@
@@ -51,7 +51,7 @@ index af3559e..6d4faae 100644
  			Sflag = 1;
  #else
  			errx(1, "no TCP MD5 signature support available");
-@@ -1166,7 +1175,7 @@ remote_connect(const char *host, const char *port, struct addrinfo hints,
+@@ -1168,7 +1177,7 @@ remote_connect(const char *host, const char *port, struct addrinfo hints,
  			freeaddrinfo(ares);
  		}
  
@@ -60,7 +60,7 @@ index af3559e..6d4faae 100644
  
  		if (ipaddr != NULL) {
  			herr = getnameinfo(res->ai_addr, res->ai_addrlen,
-@@ -1341,7 +1350,7 @@ local_listen(const char *host, const char *port, struct addrinfo hints)
+@@ -1343,7 +1352,7 @@ local_listen(const char *host, const char *port, struct addrinfo hints)
  			err(1, NULL);
  #endif
  
@@ -69,7 +69,7 @@ index af3559e..6d4faae 100644
  
  		if (bind(s, (struct sockaddr *)res->ai_addr,
  		    res->ai_addrlen) == 0)
-@@ -1915,9 +1924,10 @@ connection_info(const char *host, const char *port, const char *proto,
+@@ -1922,9 +1931,10 @@ connection_info(const char *host, const char *port, const char *proto,
  }
  
  void
@@ -81,7 +81,7 @@ index af3559e..6d4faae 100644
  
  #ifdef SO_BROADCAST
  	if (bflag) {
-@@ -1928,10 +1938,18 @@ set_common_sockopts(int s, int af)
+@@ -1935,10 +1945,18 @@ set_common_sockopts(int s, int af)
  			err(1, NULL);
  	}
  #endif
